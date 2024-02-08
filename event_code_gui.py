@@ -98,7 +98,7 @@ class TextCategorizerApp:
             self.category_assignments[selected_text] = category
             self.text_area.tag_add(category, start, end)
             self.text_area.tag_config(category, background=self.get_category_color(category))
-            self.marked_indices.extend()
+            #self.marked_indices.extend()
 
     # clears category from word/phrase so that there is no label
     def clear_category(self):
@@ -111,6 +111,8 @@ class TextCategorizerApp:
             if existing_category:
                 self.text_area.tag_remove(existing_category, start, end)
                 del self.category_assignments[selected_text]
+            else: 
+                messagebox.showerror("Error clearing tag", "An existing tag was not found for the selected text. Make sure you've selected all the text for this tag (including whitespace) and try again. ")
 
     # Assign unique hex colors for each category; aim to use pretty light colors so you can still read the text when it's highlighted. For more categories, can also add colors to actual text rather than highlighting
     def get_category_color(self, category):
