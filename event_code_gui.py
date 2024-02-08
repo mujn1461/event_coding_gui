@@ -173,6 +173,7 @@ class TextCategorizerApp:
             end_index = text.find('}', start_index)
             start_index = text.find('{', end_index + 1)
         recall+=text[end_index+1:]
+        recall = ' '.join(recall.split()) # get rid of extra whitespace
         return recall
     
     def clear_text_area(self):
