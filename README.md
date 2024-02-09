@@ -12,3 +12,9 @@ This GUI is super simple and can be easily adapted for any free recall coding or
 
 ### Usage notes and future features?
 1. Highlighting does not function like word. E.g. If text (5,10) was labeled as event, and the user expands that tag to (3,10) or relabel the range under a different tag, the code would not remove/change the existing tag on (5,10), and count the (3,10) as a separate entry in the csv file. To change the tag on already labeled text, currently we need to: 1. select the already labeled &highlighted text, press "clear" to delete its label. 2. Add a new label. 
+
+### Directory structure 
+- Recall transcripts are saved in ```parent/recall_transcript/{story}/{subject}_{story}.txt```
+- Coded details are saved in ```parent/recall_coding/{story}/coded_details/{subject}_{story}_coding.csv```
+- Clean recall only transcripts are saved in ```parent/recall_coding/{story}/clean_recall/{subject}_{story}_recall_only.txt```
+- Event assignment templates are saved in ```parent/recall_coding/{story}/event_assignment/{subject}_{story}_template.csv```
