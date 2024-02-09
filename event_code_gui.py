@@ -6,6 +6,9 @@ import csv
 class TextCategorizerApp:
     def __init__(self, root):
         self.root = root
+        self.file_prefix = '' # {subject}_{story}
+        self.parent_save_dir = '' # xx/recall_coding
+        self.story = '' # name of story
         
         # name GUI
         self.root.title("Transcript Event Coding GUI v1")
@@ -74,6 +77,9 @@ class TextCategorizerApp:
         submit_btn.pack(side = "top", padx=1)
 
         self.category_assignments = {}
+        import_btn = Button(self.root, text="IMPORT", command=self.import_file)
+        import_btn.pack(side = "top",padx = 1)
+        
         #self.marked_indices = []
 
     # assigns selected word/phrase to category
@@ -122,7 +128,14 @@ class TextCategorizerApp:
     
     # save file to csv, with one column for selected text, and one column for corresponding category label
     def save_to_csv(self):
-        filename = filedialog.asksaveasfilename(defaultextension=".csv", filetypes=[("CSV files", "*.csv")])
+        if self.file_prefix == '':
+            filename = filedialog.asksaveasfilename(defaultextension=".csv", filetypes=[("CSV files", "*.csv")])
+        else: # file naming: {subject}_{story}_coding.csv
+            details_save_dir = os.path.join(self.parent_save_dir,'coded_details')
+            if not os.path.exists(details_save_dir):
+                os.makedirs(details_save_dir)
+            filename = os.path.join(details_save_dir,self.file_prefix+'_coding.csv')
+
         if filename:
             with open(filename, "w") as file:
                 wr = csv.writer(file)
@@ -143,10 +156,11 @@ class TextCategorizerApp:
 
             # save recall portions only
             clean_recall = self.extract_recall_only(text_content)
-            save_dir = os.path.split(filename)[0]
-            story = os.path.split(filename)[1].split('.')[0]
-            clean_recall_filename = story+'_recall_only.txt'
-            with open(os.path.join(save_dir,clean_recall_filename),'w') as f:
+            clean_recall_save_dir = os.path.join(self.parent_save_dir,'clean_recall')
+            if not os.path.exists(clean_recall_save_dir):
+                os.makedirs(clean_recall_save_dir)
+            clean_recall_filename = self.file_prefix+'_recall_only.txt'
+            with open(os.path.join(clean_recall_save_dir,clean_recall_filename),'w') as f:
                 f.write(clean_recall)
             messagebox.showinfo("Success", "Clean recall saved successfully!")
             # clears text box for next transcript so that GUI can stay open/doesn't have to be re-loaded for each transcript
@@ -178,6 +192,20 @@ class TextCategorizerApp:
     
     def clear_text_area(self):
         self.text_area.delete("1.0", tk.END)
+        self.file_prefix = ''
+        self.parent_save_dir = ''
+        self.story = ''
+
+    def import_file(self):
+        filename = filedialog.askopenfilename()
+        story_recall_dir = os.path.split(filename)[0] # xx/recall_transcript/story
+        self.file_prefix = os.path.split(filename)[-1].split('.')[0] # {subject}_{story}
+        self.story = os.path.split(story_recall_dir)[-1] # story
+        parent_dir = os.path.split(os.path.split(story_recall_dir)[0])[0] # xx/
+        self.parent_save_dir = os.path.join(parent_dir,'recall_coding',self.story) # xx/recall_coding/story
+        with open(filename,'r') as f:
+            transcript = f.read()
+        self.text_area.insert(tk.END, transcript)
 
 
 if __name__ == "__main__":
