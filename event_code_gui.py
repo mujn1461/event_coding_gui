@@ -12,16 +12,16 @@ class TextCategorizerApp:
         
         # name GUI
         self.root.title("Transcript Event Coding GUI v1")
-        
+        self.root.geometry("2660x1700")
         # add instructions text to top of GUI
         instruction_title = tk.Label(self.root, text="INSTRUCTIONS:")
         instruction_title.pack(pady=5, padx = 5, anchor="w", side="top", fill="x") 
-        instruction_label = tk.Label(self.root, text="Copy transcribed text into the box below. Highlight words or phrases and click a category button to assign to that category.\nCategories are mutually exclusive. To change a categorized word/phrase to another category, highlight the word/phrase and then click the new category.\n\
+        instruction_label = tk.Label(self.root, text="Click IMPORT on the top right to import recall transcripts. Highlight words or phrases and click a category button to assign to that category.\nCategories are mutually exclusive. To change a categorized word/phrase to another category, highlight the word/phrase and then click the new category.\n\
                                      To remove a category label from a word/phrase, highlight the word/phrase and click \'Clear\'.\nTo denote non-recall content, use curly brackets around relevant words/phrases (e.g. \'{It's an amusing story, all in all.}\').\nWhen finished, click \'Save\' to output csv file with all word/phrases and their corresponding category codes. The input box will then clear and can be used again.", justify="left")
         instruction_label.pack(pady=5, padx = 1, anchor="w", side="top", fill="x") 
         
         # create text box for transcribed recall to be pasted into
-        self.text_area = Text(self.root, wrap="word", height=40, width=110)
+        self.text_area = Text(self.root, wrap="word",font=("Lato", 14), height=40, width=85,undo = True)
         self.text_area.pack(padx=10, pady=10, side="left")
 
         # categories - make sure name's align with colors assigned below in get_category_color
