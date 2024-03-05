@@ -192,6 +192,7 @@ class TextCategorizerApp:
     
     def clear_text_area(self):
         self.text_area.delete("1.0", tk.END)
+        self.category_assignments = {}
         self.file_prefix = ''
         self.parent_save_dir = ''
         self.story = ''
