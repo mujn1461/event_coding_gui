@@ -39,7 +39,7 @@ def main(args):
         concat_df.to_csv(os.path.join(event_assignment_save_dir,'%s_template.csv'%subject),index = False)
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('--consensus_dir',default='/Users/mujianing/Desktop/Huth Lab/behavior_data/segmentation/segmentation')
+    parser.add_argument('--consensus_dir',default='/Users/mujianing/Desktop/Huth Lab/behavior_data/segmentation/')
     parser.add_argument('--recall_coding_dir',default = '/Users/mujianing/Desktop/Huth Lab/behavior_data/segmentation/recall_coding')
     parser.add_argument("--story",default = 'pieman')
     args = parser.parse_args()
