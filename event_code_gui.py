@@ -90,8 +90,8 @@ class TextCategorizerApp:
             selected_text = self.text_area.get(start, end)
 
             existing_category = self.category_assignments.get(selected_text)
-            if existing_category:
-                self.text_area.tag_remove(existing_category, start, end)
+            # if existing_category:
+            #     self.text_area.tag_remove(existing_category, start, end)
             # else:
             #     selected_indices_range = list(range(start,end))
             #     intersection = set(self.marked_indices)&set(selected_indices_range)
